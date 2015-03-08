@@ -18,3 +18,20 @@ get "/" do
 
   erb :index
 end
+
+post "/choose" do
+  # Fetch the user's choice from the `params` - we used "choice" as the `name`
+  # property in our HTML form, so that's the name we use to fetch the choice
+  # from the params
+  users_choice = params[:choice]
+
+  # Increment the session value, based on the user's choice of "left" or "right"
+  if users_choice == "left"
+    session[:left] += 1
+  elsif users_choice == "right"
+    session[:right] += 1
+  end
+
+  # Redirect back to the "index" page, which triggers the `get` we defined above
+  redirect to("/")
+end
